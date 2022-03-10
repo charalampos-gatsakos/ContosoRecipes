@@ -12,10 +12,13 @@ namespace ContosoRecipes.Controllers
     public class RecipesController : ControllerBase
     {
         [HttpGet]
-        public string[] GetDishes()
+        public ActionResult GetDishes([FromQuery]int count)
         {
-            string[] dishes = { "Mararonia", "Kota Rizi", "Bithkoti" };
-            return dishes;
+            
+            string[] dishes = { "Makaronia", "Kota Rizi", "Bithkoti", "Kotopsaro" };
+            if (!dishes.Any())
+                return NotFound();
+            return Ok(dishes.Take(count));
         }
         [HttpDelete("{id}")]
         public ActionResult DeleteRecipes(string id)
